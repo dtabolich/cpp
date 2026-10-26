@@ -10,7 +10,7 @@ Follow these steps on the other Mac. The Mac needs Apple Silicon and macOS 11 or
 
 ### 1. Install the Xcode command line tools
 
-This step installs Git, SSH, and Apple clang.
+This step installs Git and Apple clang.
 
 ```bash
 xcode-select --install
@@ -44,42 +44,7 @@ brew install cmake
 cmake --version
 ```
 
-### 4. Check GitHub SSH
-
-The repository is private. This check must succeed before you clone:
-
-```bash
-ssh -T git@github.com
-```
-
-GitHub prints a success line and the command exits with status 1. That result means access works.
-
-If the check prints `Permission denied`, create a key. The command asks for a file path and a passphrase. Press Enter to accept the default path. Type a passphrase.
-
-```bash
-ssh-keygen -t ed25519 -C "dtabolich@gmail.com"
-```
-
-Save the key in the macOS keychain. Run these commands once:
-
-```bash
-mkdir -p ~/.ssh
-chmod 700 ~/.ssh
-touch ~/.ssh/config
-chmod 600 ~/.ssh/config
-cat >> ~/.ssh/config <<'EOF'
-Host github.com
-  AddKeysToAgent yes
-  UseKeychain yes
-  IdentityFile ~/.ssh/id_ed25519
-EOF
-ssh-add --apple-use-keychain ~/.ssh/id_ed25519
-pbcopy < ~/.ssh/id_ed25519.pub
-```
-
-Open https://github.com/settings/ssh/new and paste the key. Run `ssh -T git@github.com` again.
-
-### 5. Clone the repository
+### 4. Clone the repository
 
 ```bash
 git clone git@github.com:dtabolich/cpp.git
