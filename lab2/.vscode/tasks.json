@@ -4,7 +4,14 @@
     {
       "label": "lab2 tests",
       "type": "shell",
-      "command": "mkdir -p build && clang++ -std=c++17 -Iinclude -Dmain=program_main -c src/tabolich_2_1.5.cpp -o build/tabolich_2_1.5.o && clang++ -std=c++17 -Iinclude -I/opt/homebrew/include -c tests/lab2_test.cpp -o build/lab2_test.o && clang++ build/tabolich_2_1.5.o build/lab2_test.o -L/opt/homebrew/lib -lgtest_main -lgtest -pthread -o build/lab2_tests && ./build/lab2_tests",
+      "command": "bash",
+      "args": [
+        "-lc",
+        "set -euo pipefail\nmkdir -p build\nobjs=()\nfor src in src/*.cpp; do\n  base=$(basename \"$src\" .cpp)\n  sym=$(printf '%s' \"$base\" | tr -c 'A-Za-z0-9' '_')\n  clang++ -std=c++17 -Iinclude -Dmain=\"main_${sym}\" -c \"$src\" -o \"build/${sym}.o\"\n  objs+=(\"build/${sym}.o\")\ndone\ntests=()\nfor test in tests/*.cpp; do\n  base=$(basename \"$test\" .cpp)\n  sym=$(printf '%s' \"$base\" | tr -c 'A-Za-z0-9' '_')\n  clang++ -std=c++17 -Iinclude -I/opt/homebrew/include -c \"$test\" -o \"build/${sym}.o\"\n  tests+=(\"build/${sym}.o\")\ndone\nclang++ \"${objs[@]}\" \"${tests[@]}\" -L/opt/homebrew/lib -lgtest_main -lgtest -pthread -o build/lab2_tests\n./build/lab2_tests\n"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
       "group": {
         "kind": "build",
         "isDefault": true
