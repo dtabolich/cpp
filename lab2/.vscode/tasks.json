@@ -1,0 +1,15 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "lab2 tests",
+      "type": "shell",
+      "command": "mkdir -p build && clang++ -std=c++17 -Iinclude -Dmain=program_main -c src/tabolich_2_1.5.cpp -o build/tabolich_2_1.5.o && clang++ -std=c++17 -Iinclude -I/opt/homebrew/include -c tests/lab2_test.cpp -o build/lab2_test.o && clang++ build/tabolich_2_1.5.o build/lab2_test.o -L/opt/homebrew/lib -lgtest_main -lgtest -pthread -o build/lab2_tests && ./build/lab2_tests",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": ["$gcc"]
+    }
+  ]
+}
