@@ -1,8 +1,8 @@
 # cpp
 
-Small C++ project for Apple Silicon. CMake builds the app and the tests. Google Test 1.18.0 is downloaded on the first configure.
+Small C++ project for Apple Silicon. CMake builds the app and the tests with the clang and Google Test already installed on the Mac.
 
-The binary is arm64. It runs on macOS 11 or newer, which covers every M1 Mac.
+Build it on the Mac where you run it. Apple clang produces an arm64 binary on Apple Silicon.
 
 ## Prerequisites
 
@@ -35,12 +35,12 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 
 Open a new terminal after this step.
 
-### 3. Install CMake
+### 3. Install CMake and Google Test
 
-This project needs CMake 3.24 or newer.
+This project needs CMake 3.24 or newer, and the Google Test package from Homebrew.
 
 ```bash
-brew install cmake
+brew install cmake googletest
 cmake --version
 ```
 
@@ -55,7 +55,7 @@ Skip this step when you are already in the cloned project folder.
 
 ## Build and run
 
-Run this from the project folder. The first configure downloads Google Test, so the Mac needs a network connection. The app prints `5` when the build works.
+Run this from the project folder. The app prints `5` when the build works.
 
 ```bash
 cmake -S . -B build && cmake --build build && ctest --test-dir build --output-on-failure && ./build/app
@@ -69,7 +69,7 @@ cmake --build build && ctest --test-dir build --output-on-failure
 
 ## Build and run in Visual Studio Code
 
-The CMake Tools extension runs the same CMake commands from the UI. The Mac still needs the tools from Prerequisites. The first configure downloads Google Test.
+Open the folder in Visual Studio Code. The `.vscode` settings use the pre-installed clang at `/usr/bin/clang++`. CMake Tools runs the same build and test commands from the UI.
 
 1. Install the CMake Tools extension by Microsoft.
 2. Open this folder in Visual Studio Code.
