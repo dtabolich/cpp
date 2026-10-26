@@ -67,6 +67,22 @@ Later builds only need the compile and test steps:
 cmake --build build && ctest --test-dir build --output-on-failure
 ```
 
+## Build and run in Visual Studio Code
+
+The CMake Tools extension runs the same CMake commands from the UI. The Mac still needs the tools from Prerequisites. The first configure downloads Google Test.
+
+1. Install the CMake Tools extension by Microsoft.
+2. Open this folder in Visual Studio Code.
+3. Choose the Clang kit when CMake Tools asks for a compiler.
+4. Click **Build** on the status bar.
+5. Click the beaker icon on the left. That icon is **Testing**. Press the play button at the top of that panel.
+
+The panel lists `AddTest.AddsPositiveNumbers` and `AddTest.AddsNegativeNumbers`. A passed test gets a check mark. Click a test, then click the output icon, to read the Google Test message.
+
+**Run CTest** on the status bar runs the same tests. If the list is empty, build the project, then click the refresh icon in the Testing panel.
+
+To run the app, set the status-bar target to `app`, then press the play button. The app prints `5`.
+
 ## Add a test
 
 Create a file under `tests/` whose name ends in `_test.cpp`. CMake picks it up on the next build. You do not edit `CMakeLists.txt`.
